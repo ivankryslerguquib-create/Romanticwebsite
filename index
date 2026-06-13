@@ -3,250 +3,187 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>My Romantic Website ❤️</title>
+<title>Romantic Website Premium ❤️</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Playfair+Display:wght@500&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
 
 <style>
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-scroll-behavior:smooth;
-}
-
 body{
-font-family:Poppins, sans-serif;
+margin:0;
+font-family:Poppins;
 background:linear-gradient(135deg,#ffe6f0,#fff,#ffd6e0);
 overflow-x:hidden;
-color:#333;
+text-align:center;
+}
+
+/* LOCK SCREEN */
+.lock{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(255,192,203,0.95);
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+z-index:999;
+}
+
+.lock input{
+padding:10px;
+border-radius:10px;
+border:1px solid #ff3e7f;
 }
 
 /* HERO */
 .hero{
 height:100vh;
 display:flex;
+flex-direction:column;
 justify-content:center;
 align-items:center;
-flex-direction:column;
-text-align:center;
-position:relative;
 background:radial-gradient(circle,#ffb6c1,#fff);
 }
 
-.hero h1{
+h1{
 font-family:"Playfair Display";
-font-size:3rem;
 color:#ff3e7f;
 }
 
-.hero p{
-margin-top:10px;
-max-width:600px;
-}
-
-.btn{
-margin-top:20px;
-padding:12px 25px;
+/* BUTTONS */
+button{
+padding:10px 20px;
+border:none;
+border-radius:25px;
 background:#ff3e7f;
 color:white;
-border:none;
-border-radius:30px;
 cursor:pointer;
+margin:5px;
+}
+
+/* GALLERY */
+.gallery img{
+width:120px;
+border-radius:10px;
+margin:5px;
 transition:0.3s;
 }
+.gallery img:hover{transform:scale(1.1);}
 
-.btn:hover{
-transform:scale(1.1);
-}
-
-/* FLOATING HEARTS */
+/* HEARTS */
 .heart{
 position:absolute;
 color:#ff3e7f;
 animation:float 6s linear infinite;
 }
-
 @keyframes float{
-0%{transform:translateY(100vh) scale(0);}
-100%{transform:translateY(-10vh) scale(1);}
+0%{transform:translateY(100vh);}
+100%{transform:translateY(-10vh);}
 }
 
-/* SECTIONS */
-section{
-padding:80px 20px;
-text-align:center;
-}
-
-h2{
-font-family:"Playfair Display";
-color:#ff3e7f;
-margin-bottom:20px;
-}
-
-/* STORY */
-.card{
-background:rgba(255,255,255,0.5);
-backdrop-filter:blur(10px);
-padding:20px;
-margin:10px;
-border-radius:15px;
-box-shadow:0 5px 15px rgba(0,0,0,0.1);
-}
-
-/* GALLERY */
-.gallery{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
-gap:10px;
-}
-.gallery img{
-width:100%;
-border-radius:10px;
-transition:0.3s;
-}
-.gallery img:hover{
-transform:scale(1.1);
-}
-
-/* COUNTDOWN */
-.countdown{
-display:flex;
-justify-content:center;
-gap:20px;
-flex-wrap:wrap;
-}
-.box{
-background:white;
-padding:20px;
-border-radius:10px;
-min-width:80px;
-box-shadow:0 5px 10px rgba(0,0,0,0.1);
-}
-
-/* LOVE LETTER */
-.letter{
-background:rgba(255,255,255,0.6);
-padding:30px;
-max-width:700px;
-margin:auto;
-border-radius:20px;
-font-family:"Dancing Script";
-font-size:1.5rem;
-}
-
-/* SURPRISE */
-.surprise{
-background:#ff3e7f;
-color:white;
-padding:15px 25px;
-border:none;
-border-radius:30px;
-cursor:pointer;
-}
-
-/* FOOTER */
 footer{
 padding:40px;
 background:#ffb6c1;
-text-align:center;
 margin-top:50px;
 }
-
 </style>
 </head>
 
 <body>
 
+<!-- LOCK SCREEN -->
+<div class="lock" id="lock">
+<h2>Enter Password 💖</h2>
+<input type="password" id="pass"/>
+<button onclick="checkPass()">Enter</button>
+</div>
+
+<!-- HERO -->
 <div class="hero">
 <h1>Happy Birthday My Love ❤️</h1>
-<p>You are my today, my tomorrow, and my forever.</p>
-<button class="btn" onclick="scrollToSection()">Open My Heart</button>
+<p>You are my forever person.</p>
+<button onclick="playMusic()">🎵 Music</button>
+<button onclick="triggerConfetti()">🎉 Surprise</button>
 </div>
 
-<section id="story">
+<!-- STORY -->
 <h2>Our Story</h2>
-<div class="card">We met like destiny was written for us ❤️</div>
-<div class="card">Every moment with you feels like magic ✨</div>
-<div class="card">I choose you, always and forever 💍</div>
-</section>
+<p>Every moment with you is magic ✨</p>
 
-<section>
-<h2>Photo Gallery</h2>
-<div class="gallery">
-<img src="https://picsum.photos/200?1"/>
-<img src="https://picsum.photos/200?2"/>
-<img src="https://picsum.photos/200?3"/>
-<img src="https://picsum.photos/200?4"/>
-</div>
-</section>
+<!-- GALLERY -->
+<h2>Upload Your Memory 📸</h2>
+<input type="file" onchange="preview(event)"/>
+<div class="gallery" id="gallery"></div>
 
-<section>
-<h2>Countdown</h2>
-<div class="countdown">
-<div class="box"><div id="days">0</div>Days</div>
-<div class="box"><div id="hours">0</div>Hours</div>
-<div class="box"><div id="minutes">0</div>Min</div>
-<div class="box"><div id="seconds">0</div>Sec</div>
-</div>
-</section>
+<!-- FOOTER -->
+<footer>Forever & Always ❤️</footer>
 
-<section>
-<h2>Love Letter</h2>
-<div class="letter">
-Every heartbeat of mine whispers your name...  
-I love you more than words can ever explain ❤️
-</div>
-</section>
+<!-- AUDIO -->
+<audio id="music" loop>
+<source src="https://cdn.pixabay.com/download/audio/2022/02/22/audio_d3b5b1c3c7.mp3?filename=romantic-112191.mp3">
+</audio>
 
-<section>
-<h2>Surprise</h2>
-<button class="surprise" onclick="surprise()">Click For A Surprise ❤️</button>
-<p id="msg"></p>
-</section>
-
-<footer>
-Forever and Always, My Love ❤️
-</footer>
+<!-- CONFETTI LIB -->
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
 <script>
-// smooth scroll
-function scrollToSection(){
-document.getElementById("story").scrollIntoView({behavior:"smooth"});
+
+// PASSWORD
+function checkPass(){
+let p=document.getElementById("pass").value;
+if(p==="love123"){
+document.getElementById("lock").style.display="none";
+}else{
+alert("Wrong password 💔");
+}
 }
 
-// countdown demo (set future date here)
-const target = new Date();
-target.setDate(target.getDate()+10);
-
-function updateCountdown(){
-const now = new Date();
-const diff = target - now;
-
-document.getElementById("days").innerText = Math.floor(diff/86400000);
-document.getElementById("hours").innerText = Math.floor(diff/3600000)%24;
-document.getElementById("minutes").innerText = Math.floor(diff/60000)%60;
-document.getElementById("seconds").innerText = Math.floor(diff/1000)%60;
+// MUSIC
+function playMusic(){
+let music=document.getElementById("music");
+if(music.paused){
+music.play();
+}else{
+music.pause();
 }
-setInterval(updateCountdown,1000);
-
-// surprise
-function surprise(){
-document.getElementById("msg").innerHTML =
-"💖 You are my favorite person in the world 💖";
 }
 
-// floating hearts
+// CONFETTI
+function triggerConfetti(){
+confetti({
+particleCount:200,
+spread:100,
+origin:{y:0.6}
+});
+}
+
+// UPLOAD IMAGE
+function preview(event){
+let file=event.target.files[0];
+let reader=new FileReader();
+
+reader.onload=function(){
+let img=document.createElement("img");
+img.src=reader.result;
+document.getElementById("gallery").appendChild(img);
+}
+
+reader.readAsDataURL(file);
+}
+
+// FLOATING HEARTS
 setInterval(()=>{
-const heart = document.createElement("div");
-heart.classList.add("heart");
+let heart=document.createElement("div");
 heart.innerHTML="❤️";
+heart.classList.add("heart");
 heart.style.left=Math.random()*100+"vw";
 heart.style.fontSize=Math.random()*20+10+"px";
 document.body.appendChild(heart);
-
 setTimeout(()=>heart.remove(),6000);
 },300);
+
 </script>
 
 </body>
